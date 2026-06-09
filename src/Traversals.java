@@ -42,7 +42,7 @@ public class Traversals {
    */
   public static <T> String buildPostOrderString(TreeNode<T> node) {
     if (node == null) return "";
-
+    return buildPostOrderString(node.left) + buildPostOrderString(node.right) + node.value;
   }
 
   /**
@@ -54,7 +54,20 @@ public class Traversals {
    * @return a list of node values in a top-to-bottom order, or an empty list if the tree is null
    */
   public static <T> List<T> collectLevelOrderValues(TreeNode<T> node) {
-    return null;
+    List<T> list = new ArrayList<>();
+    if (node == null) return list;
+    Queue<TreeNode<T>> queue = new LinkedList<>();
+
+    queue.offer(node);
+
+    while (!queue.isEmpty()) {
+      TreeNode<T> current = queue.remove();
+      if (current == null) continue;
+      list.add(current.value);
+      queue.offer(current.left);
+      queue.offer(current.right);
+    }
+    return list;
   }
 
   /**
@@ -65,7 +78,7 @@ public class Traversals {
    * @return the number of unique values in the tree, or 0 if the tree is null
    */
   public static int countDistinctValues(TreeNode<Integer> node) {
-    return 0;
+    
   }
 
   /**
